@@ -4,6 +4,7 @@ using OpenTK;
 using System.ComponentModel;
 using System.Diagnostics;
 using System;
+using System.Collections.Generic;
 
 namespace WindEditor
 {
@@ -24,7 +25,7 @@ namespace WindEditor
 		public virtual void OnConstruction() {}
 
 		// This is called after the data is loaded out of the disk. Use this if you need to post-process the loaded data.
-		public virtual void PostLoad() {}
+		public virtual void PostLoad(List<WDOMNode> sceneList) {}
 
 		// This is called before writing data to the disk. Use this if you need to pre-process the data to be saved.
 		public virtual void PreSave() {}

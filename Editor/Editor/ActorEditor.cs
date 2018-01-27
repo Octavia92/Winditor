@@ -75,7 +75,7 @@ namespace WindEditor
                 SerializableDOMNode origNode = selected as SerializableDOMNode;
                 Type selType = selected.GetType();
                 newNode = (SerializableDOMNode)Activator.CreateInstance(selType, origNode.FourCC, m_world);
-                newNode.PostLoad();
+                newNode.PostLoad(null);
                 newNode.SetParent(selected.Parent);
 
                 if (origNode.Parent is WDOMLayeredGroupNode)
@@ -101,7 +101,7 @@ namespace WindEditor
 
                 newNode = (SerializableDOMNode)Activator.CreateInstance(newObjType, enumVal, m_world);
                 newNode.Layer = layer;
-                newNode.PostLoad();
+                newNode.PostLoad(null);
                 newNode.SetParent(lyrNode);
             }
             else if (selected is WDOMGroupNode)
@@ -113,7 +113,7 @@ namespace WindEditor
 
                 Type newObjType = FourCCConversion.GetTypeFromEnum(grpNode.FourCC);
                 newNode = (SerializableDOMNode)Activator.CreateInstance(newObjType, grpNode.FourCC, m_world);
-                newNode.PostLoad();
+                newNode.PostLoad(null);
                 newNode.SetParent(grpNode);
             }
             else

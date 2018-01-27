@@ -197,7 +197,7 @@ namespace WindEditor
 
         public List<WDOMNode> GetMapEntities()
         {
-            var loadedActors = new List<WDOMNode>();
+            List<WDOMNode> loadedActors = new List<WDOMNode>();
             foreach (var chunk in m_chunkList)
             {
                 m_reader.BaseStream.Position = chunk.ChunkOffset;
@@ -221,7 +221,6 @@ namespace WindEditor
 							Type actorType = Type.GetType($"WindEditor.{template.ClassName}");
 							SerializableDOMNode entity = (SerializableDOMNode)Activator.CreateInstance(actorType, chunk.FourCC, m_world);
 							entity.Load(m_reader);
-							entity.PostLoad();
 							entity.Layer = chunk.Layer;
 
                             loadedActors.Add(entity);
@@ -245,6 +244,15 @@ namespace WindEditor
             //         Console.WriteLine("{0} Count: {1}", node, dict[node].Count);
 			// 
             // }
+
+            foreach (WDOMNode node in loadedActors)
+            {
+                if (node is SerializableDOMNode)
+                {
+                    SerializableDOMNode serialNode = node as SerializableDOMNode;
+                    serialNode.PostLoad(loadedActors);
+                }
+            }
 
             return loadedActors;
         }

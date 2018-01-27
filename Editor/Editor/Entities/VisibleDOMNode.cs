@@ -3,6 +3,7 @@ using OpenTK;
 using System;
 using System.Windows.Data;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace WindEditor
 {
@@ -116,9 +117,9 @@ namespace WindEditor
             }
         }
 
-        public override void PostLoad()
+        public override void PostLoad(List<WDOMNode> sceneList)
 		{
-			base.PostLoad();
+			base.PostLoad(sceneList);
 
 			m_actorMesh = WResourceManager.LoadActorByName(ToString());
 			if (m_actorMesh != null)
@@ -186,7 +187,7 @@ namespace WindEditor
         protected virtual void VisibleDOMNode_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Name")
-                PostLoad();
+                PostLoad(null);
         }
 
 		#region IRenderable
